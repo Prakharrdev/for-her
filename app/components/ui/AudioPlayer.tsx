@@ -56,7 +56,7 @@ export default function AudioPlayer() {
   return (
     <>
       {/* Hidden audio element */}
-      <audio ref={audioRef} src="/audio/background.mp3" loop preload="auto" />
+      <audio ref={audioRef} src="/assets/Taylor Swift Mine.mp3" loop preload="auto" />
 
       {/* Initial prompt overlay */}
       <AnimatePresence>
