@@ -201,7 +201,7 @@ export default function BranchOverlay({
       <motion.div
         className="absolute flex items-center"
         style={{
-          top: '62%',
+          top: '80%',
           translateY: '-50%',
           x: translateX,
           gap: CARD_GAP,
