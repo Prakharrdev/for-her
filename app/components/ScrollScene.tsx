@@ -2,6 +2,7 @@
 
 import React, { useEffect, useRef, useState } from 'react';
 import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
+import BranchOverlay from './BranchOverlay';
 
 const GENESIS_FRAME_COUNT = 200;
 const TRANSITION_FRAME_COUNT = 134; // Only use first 134 frames
@@ -369,6 +370,13 @@ export default function ScrollScene() {
             ETERNAL SAKURA
           </h1>
         </motion.div>
+
+        {/* Memory Lane Branch Overlay — grows after text fades out */}
+        <BranchOverlay
+          scrollYProgress={scrollYProgress}
+          branchStart={textPauseEnd + 0.03}
+          branchEnd={0.92}
+        />
       </div>
     </div>
   );
