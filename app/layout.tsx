@@ -62,7 +62,7 @@ export const metadata: Metadata = {
     url: "https://sakura.perkkk.dev",
     images: [
       {
-        url: "/genesis/ezgif-frame-100.jpg",
+        url: "/og-sakura.jpg",
         width: 1200,
         height: 630,
         alt: "Eternal Sakura – Interactive Digital Love Letter",
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     title: "Eternal Sakura",
     description:
       "An immersive, scroll-driven digital love letter crafted with sakura petals and memories.",
-    images: ["/genesis/ezgif-frame-100.jpg"],
+    images: ["/og-sakura.jpg"],
     creator: "@prakharrdev",
   },
 
