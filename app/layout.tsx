@@ -25,7 +25,7 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Eternal Sakura — For Gauri, by Prakhar | A Love Story in Petals",
+  title: "Eternal Sakura",
   description:
     "Eternal Sakura is an immersive, scroll-driven love letter crafted by Prakhar for Gauri — tracing every glance, every heartbeat, and every memory from September 2022 to forever. Built with sakura petals, animated timelines, and a heart that never stops counting.",
   keywords: [
@@ -99,7 +99,7 @@ export const metadata: Metadata = {
         url: "https://sakura.perkkk.dev/genesis/ezgif-frame-100.jpg",
         width: 1200,
         height: 630,
-        alt: "Eternal Sakura — A Love Story by Prakhar for Gauri",
+        alt: "Eternal Sakura",
       },
     ],
     locale: "en_US",
@@ -107,7 +107,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Eternal Sakura — For Gauri, by Prakhar",
+    title: "Eternal Sakura",
     description:
       "An immersive love letter written in sakura petals and light — every scroll reveals a memory, every heartbeat counts the days.",
     images: ["https://sakura.perkkk.dev/genesis/ezgif-frame-100.jpg"],
