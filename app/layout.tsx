@@ -26,9 +26,9 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Eternal Sakura – An Interactive Digital Love Letter by Prakhar Dev",
+  title: "Eternal Sakura – An Interactive Digital Love Letter",
   description:
-    "Eternal Sakura is an immersive, scroll-driven digital love letter by Prakhar Dev — an interactive romantic website crafted with sakura petals, memories, and animated timelines.",
+    "An immersive, scroll-driven digital love letter crafted with sakura petals, memories, and animated timelines. Experience a romantic journey through time.",
 
   keywords: [
     "Eternal Sakura",
@@ -55,14 +55,14 @@ export const metadata: Metadata = {
   },
 
   openGraph: {
-    title: "Eternal Sakura",
+    title: "Eternal Sakura – An Interactive Digital Love Letter",
     description:
       "An immersive love letter written in sakura petals and light — every scroll reveals a memory, every heartbeat counts the days.",
     siteName: "Eternal Sakura",
     url: "https://sakura.perkkk.dev",
     images: [
       {
-        url: "https://sakura.perkkk.dev/genesis/ezgif-frame-100.jpg",
+        url: "/genesis/ezgif-frame-100.jpg",
         width: 1200,
         height: 630,
         alt: "Eternal Sakura – Interactive Digital Love Letter",
@@ -77,7 +77,7 @@ export const metadata: Metadata = {
     title: "Eternal Sakura",
     description:
       "An immersive, scroll-driven digital love letter crafted with sakura petals and memories.",
-    images: ["https://sakura.perkkk.dev/genesis/ezgif-frame-100.jpg"],
+    images: ["/genesis/ezgif-frame-100.jpg"],
     creator: "@prakharrdev",
   },
 
@@ -100,6 +100,13 @@ export const metadata: Metadata = {
   robots: {
     index: true,
     follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
   },
 };
 
