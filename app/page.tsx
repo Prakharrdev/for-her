@@ -1,4 +1,6 @@
 import ScrollScene from "@/app/components/ScrollScene";
+import SeasonCanvas from "@/app/components/SeasonCanvas";
+import MemoryLane from "@/app/components/MemoryLane";
 
 export default function Home() {
   return (
@@ -11,6 +13,17 @@ export default function Home() {
       </section>
       
       <ScrollScene />
+
+      {/* Scene 3 — Memory Lane over Seasonal Background */}
+      <section className="relative">
+        {/* The Background (Stays fixed while we scroll this section) */}
+        <div className="sticky top-0 h-screen w-full -z-10">
+          <SeasonCanvas />
+        </div>
+
+        {/* The Content (Scrolls naturally over the seasonal background) */}
+        <MemoryLane />
+      </section>
       
       <section className="h-screen flex items-center justify-center bg-black text-white relative overflow-hidden">
         {/* Sakura petal background effect */}
