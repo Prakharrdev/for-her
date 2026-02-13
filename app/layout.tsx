@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import Script from "next/script";
 import { Geist, Geist_Mono, Playfair_Display, Cormorant_Garamond } from "next/font/google";
 import "./globals.css";
 
@@ -25,73 +26,38 @@ const cormorant = Cormorant_Garamond({
 });
 
 export const metadata: Metadata = {
-  title: "Eternal Sakura",
+  title: "Eternal Sakura – An Interactive Digital Love Letter by Prakhar Dev",
   description:
-    "Eternal Sakura is an immersive, scroll-driven love letter crafted by Prakhar for Gauri — tracing every glance, every heartbeat, and every memory from September 2022 to forever. Built with sakura petals, animated timelines, and a heart that never stops counting.",
+    "Eternal Sakura is an immersive, scroll-driven digital love letter by Prakhar Dev — an interactive romantic website crafted with sakura petals, memories, and animated timelines.",
+
   keywords: [
     "Eternal Sakura",
-    "Sakura by Prakhar Dev",
-    "Sakura Prakhar",
-    "Eternal Sakura Prakhar",
-    "Sakura Gauri",
-    "Prakhar Dev",
-    "Prakhar Gauri",
-    "sakura perkkk",
-    "sakura.perkkk.dev",
-    "perkkk dev",
-    "perkkk",
-    "Valentine",
-    "valentine 2026",
-    "valentine gift for girlfriend",
-    "valentine website",
-    "valentine love letter",
-    "creative valentine gift",
-    "digital love letter",
-    "online love letter",
-    "interactive love letter",
-    "love story",
-    "love story website",
-    "romantic website",
-    "romantic gift",
-    "scroll animation",
-    "scroll-driven animation",
-    "sakura",
-    "sakura petals",
-    "cherry blossom love",
-    "for her",
-    "for girlfriend",
-    "valentine gift",
-    "love letter website",
-    "relationship timeline",
-    "memory lane",
-    "couple website",
-    "anniversary website",
-    "long distance love",
-    "long distance relationship",
-    "eternal love",
-    "love counter",
-    "relationship counter",
-    "how long have we been together",
-    "custom valentine website",
-    "best valentine gift 2026",
-    "unique valentine gift",
-    "personalized love story",
-    "web developer valentine",
-    "coded with love",
-    "Prakhar developer",
-    "prakharrdev",
+    "interactive digital love letter",
+    "romantic scroll animation website",
+    "creative valentine website project",
+    "interactive love story website",
+    "Prakhar Dev portfolio",
+    "next.js valentine idea",
+    "webgl love letter",
+    "animated relationship timeline",
+    "digital anniversary gift",
+    "sakura animation website",
   ],
+
   authors: [{ name: "Prakhar Dev", url: "https://sakura.perkkk.dev" }],
   creator: "Prakhar Dev",
   publisher: "Prakhar Dev",
+
   metadataBase: new URL("https://sakura.perkkk.dev"),
+
   alternates: {
     canonical: "/",
   },
+
   openGraph: {
     title: "Eternal Sakura",
     description:
-      "An immersive love letter written in sakura petals and light — every scroll reveals a memory, every heartbeat counts the days. From the first glance to forever.",
+      "An immersive love letter written in sakura petals and light — every scroll reveals a memory, every heartbeat counts the days.",
     siteName: "Eternal Sakura",
     url: "https://sakura.perkkk.dev",
     images: [
@@ -99,20 +65,22 @@ export const metadata: Metadata = {
         url: "https://sakura.perkkk.dev/genesis/ezgif-frame-100.jpg",
         width: 1200,
         height: 630,
-        alt: "Eternal Sakura",
+        alt: "Eternal Sakura – Interactive Digital Love Letter",
       },
     ],
     locale: "en_US",
     type: "website",
   },
+
   twitter: {
     card: "summary_large_image",
     title: "Eternal Sakura",
     description:
-      "An immersive love letter written in sakura petals and light — every scroll reveals a memory, every heartbeat counts the days.",
+      "An immersive, scroll-driven digital love letter crafted with sakura petals and memories.",
     images: ["https://sakura.perkkk.dev/genesis/ezgif-frame-100.jpg"],
     creator: "@prakharrdev",
   },
+
   icons: {
     icon: [
       { url: "/icon-192.png", sizes: "192x192", type: "image/png" },
@@ -120,12 +88,15 @@ export const metadata: Metadata = {
     ],
     apple: "/apple-touch-icon.png",
   },
+
   manifest: "/manifest.json",
+
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
     title: "Eternal Sakura",
   },
+
   robots: {
     index: true,
     follow: true,
@@ -149,6 +120,25 @@ export default function RootLayout({
         className={`${geistSans.variable} ${geistMono.variable} ${playfair.variable} ${cormorant.variable} antialiased`}
         style={{ cursor: 'none' }}
       >
+        <Script
+          id="structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify({
+              "@context": "https://schema.org",
+              "@type": "CreativeWork",
+              name: "Eternal Sakura",
+              author: {
+                "@type": "Person",
+                name: "Prakhar Dev",
+                url: "https://sakura.perkkk.dev",
+              },
+              description:
+                "An interactive digital love letter crafted with scroll-driven animation, sakura petals, and a romantic timeline.",
+              url: "https://sakura.perkkk.dev",
+            }),
+          }}
+        />
         {children}
       </body>
     </html>
