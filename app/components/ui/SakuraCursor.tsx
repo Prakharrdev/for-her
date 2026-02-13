@@ -1,53 +1,51 @@
 'use client';
 
-import React, { useEffect, useState } from 'react';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
+import React, { useEffect, useRef, useCallback } from 'react';
 
 export default function SakuraCursor() {
-  const [visible, setVisible] = useState(false);
-  const cursorX = useMotionValue(-100);
-  const cursorY = useMotionValue(-100);
+  const cursorRef = useRef<HTMLDivElement>(null);
+  const pos = useRef({ x: -100, y: -100 });
 
-  // Smooth spring follow
-  const springX = useSpring(cursorX, { damping: 25, stiffness: 300, mass: 0.5 });
-  const springY = useSpring(cursorY, { damping: 25, stiffness: 300, mass: 0.5 });
+  const onMove = useCallback((e: MouseEvent) => {
+    pos.current.x = e.clientX;
+    pos.current.y = e.clientY;
+    if (cursorRef.current) {
+      cursorRef.current.style.transform = `translate3d(${e.clientX - 20}px, ${e.clientY - 20}px, 0)`;
+      cursorRef.current.style.opacity = '1';
+    }
+  }, []);
 
   useEffect(() => {
-    const move = (e: MouseEvent) => {
-      cursorX.set(e.clientX);
-      cursorY.set(e.clientY);
-      if (!visible) setVisible(true);
-    };
+    // Skip on touch-only devices
+    if (window.matchMedia('(pointer: coarse)').matches) return;
 
-    const hide = () => setVisible(false);
-    const show = () => setVisible(true);
+    const hide = () => { if (cursorRef.current) cursorRef.current.style.opacity = '0'; };
+    const show = () => { if (cursorRef.current) cursorRef.current.style.opacity = '1'; };
 
-    window.addEventListener('mousemove', move);
+    window.addEventListener('mousemove', onMove, { passive: true });
     document.addEventListener('mouseleave', hide);
     document.addEventListener('mouseenter', show);
 
     return () => {
-      window.removeEventListener('mousemove', move);
+      window.removeEventListener('mousemove', onMove);
       document.removeEventListener('mouseleave', hide);
       document.removeEventListener('mouseenter', show);
     };
-  }, [cursorX, cursorY, visible]);
-
-  // Don't render on touch devices
-  if (typeof window !== 'undefined' && window.matchMedia('(pointer: coarse)').matches) {
-    return null;
-  }
+  }, [onMove]);
 
   return (
-    <motion.div
-      className="fixed top-0 left-0 pointer-events-none"
+    <div
+      ref={cursorRef}
       style={{
-        x: springX,
-        y: springY,
-        translateX: '-50%',
-        translateY: '-50%',
+        position: 'fixed',
+        top: 0,
+        left: 0,
+        width: 40,
+        height: 40,
+        pointerEvents: 'none',
         zIndex: 99999,
-        opacity: visible ? 1 : 0,
+        opacity: 0,
+        willChange: 'transform',
       }}
     >
       {/* eslint-disable-next-line @next/next/no-img-element */}
@@ -59,6 +57,6 @@ export default function SakuraCursor() {
         draggable={false}
         style={{ display: 'block' }}
       />
-    </motion.div>
+    </div>
   );
 }
