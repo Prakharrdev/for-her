@@ -398,7 +398,7 @@ export default function ScrollScene() {
         {/* Memory Lane Branch Overlay — grows after text fades out */}
         <BranchOverlay
           scrollYProgress={scrollYProgress}
-          branchStart={textPauseEnd + 0.03}
+          branchStart={textPauseEnd + 0.16}
           branchEnd={0.92}
         />
       </div>
