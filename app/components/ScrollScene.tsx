@@ -18,6 +18,7 @@ const SCROLL_HEIGHT = 55000; // Extended for 1254 logical frames (200 + 134 + 12
 export default function ScrollScene() {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const containerRef = useRef<HTMLDivElement | null>(null);
+  const videoRef = useRef<HTMLVideoElement>(null);
   const [loadingProgress, setLoadingProgress] = useState(0);
   const [isReady, setIsReady] = useState(false);
   const [isMounted, setIsMounted] = useState(false);
@@ -52,10 +53,16 @@ export default function ScrollScene() {
     [1.0, 1.4]
   );
   
-  // Canvas opacity: Fade out during text pause, fade back in for End sequence
+  // Canvas opacity: Fade out during text pause, stay hidden (video takes over)
   const canvasOpacity = useTransform(scrollYProgress, 
-    [textPauseStart - 0.02, textPauseStart, textPauseEnd, textPauseEnd + 0.03, 0.99], 
-    [1, 0, 0, 1, 1]
+    [textPauseStart - 0.02, textPauseStart, 0.99], 
+    [1, 0, 0]
+  );
+
+  // Video opacity: Fade in after text disappears, stay visible for the rest
+  const videoOpacity = useTransform(scrollYProgress,
+    [textPauseEnd, textPauseEnd + 0.03],
+    [0, 1]
   );
   
   // Text opacity: Fade in during text pause section
@@ -304,6 +311,23 @@ export default function ScrollScene() {
     <div ref={containerRef} style={{ height: `${SCROLL_HEIGHT}px` }} className="relative bg-black">
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
         
+        {/* Background Video Layer — loops after text fades out, z-index: 5 */}
+        <motion.div
+          className="absolute inset-0 flex items-center justify-center"
+          style={{ opacity: videoOpacity, zIndex: 5 }}
+        >
+          <video
+            ref={videoRef}
+            className="min-w-full min-h-full object-cover"
+            style={{ transform: 'scale(1.25)' }}
+            src="/Bg-video.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
+        </motion.div>
+
         {/* Canvas Layer - z-index: 10 */}
         <motion.div 
           className="absolute inset-0 flex items-center justify-center"

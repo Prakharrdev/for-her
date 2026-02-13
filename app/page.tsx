@@ -1,4 +1,5 @@
 import ScrollScene from "@/app/components/ScrollScene";
+import ValentineProposal from "@/app/components/ValentineProposal";
 
 export default function Home() {
   return (
@@ -11,24 +12,10 @@ export default function Home() {
       </section>
       
       <ScrollScene />
-      
-      <section className="h-screen flex items-center justify-center bg-black text-white relative overflow-hidden">
-        {/* Sakura petal background effect */}
-        <div className="absolute inset-0 opacity-10">
-          <div className="absolute top-10 left-20 w-8 h-8 bg-pink-300 rounded-full blur-sm animate-pulse"></div>
-          <div className="absolute top-32 right-32 w-6 h-6 bg-pink-200 rounded-full blur-sm animate-pulse delay-100"></div>
-          <div className="absolute bottom-40 left-40 w-10 h-10 bg-pink-400 rounded-full blur-md animate-pulse delay-200"></div>
-          <div className="absolute bottom-20 right-20 w-7 h-7 bg-pink-300 rounded-full blur-sm animate-pulse delay-300"></div>
-        </div>
-        
-        <div className="text-center p-8 z-10">
-            <h2 className="text-4xl md:text-5xl font-light text-pink-200/80 mb-6">
-              Epilogue
-            </h2>
-            <p className="text-xl text-pink-200/60 mt-4 font-light max-w-2xl mx-auto">
-              The moment passes, but the memory remains forever.
-            </p>
-        </div>
+
+      {/* The Finale */}
+      <section className="relative z-20 bg-black/50 backdrop-blur-sm">
+        <ValentineProposal />
       </section>
     </main>
   );
