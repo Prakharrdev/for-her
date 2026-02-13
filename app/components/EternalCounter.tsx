@@ -22,7 +22,6 @@ function calculateElapsed(start: Date): TimeElapsed {
   const totalSeconds = Math.floor(diff / 1000);
   const totalMinutes = Math.floor(totalSeconds / 60);
   const totalHours = Math.floor(totalMinutes / 60);
-  const totalDays = Math.floor(totalHours / 24);
 
   // Calculate years and remaining days
   let years = now.getFullYear() - start.getFullYear();
@@ -113,20 +112,18 @@ function Separator() {
 }
 
 export default function EternalCounter({ startDate }: EternalCounterProps) {
-  const [elapsed, setElapsed] = useState<TimeElapsed | null>(null);
+  const [elapsed, setElapsed] = useState<TimeElapsed>(() =>
+    calculateElapsed(new Date(startDate)),
+  );
 
   useEffect(() => {
     const start = new Date(startDate);
-    // Set immediately
-    setElapsed(calculateElapsed(start));
     // Tick every second
     const interval = setInterval(() => {
       setElapsed(calculateElapsed(start));
     }, 1000);
     return () => clearInterval(interval);
   }, [startDate]);
-
-  if (!elapsed) return null;
 
   const pad = (n: number, digits = 2) => n.toString().padStart(digits, '0');
 

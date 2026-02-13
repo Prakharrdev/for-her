@@ -89,7 +89,7 @@ export const metadata: Metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "Eternal Sakura — For Gauri, by Prakhar",
+    title: "Eternal Sakura",
     description:
       "An immersive love letter written in sakura petals and light — every scroll reveals a memory, every heartbeat counts the days. From the first glance to forever.",
     siteName: "Eternal Sakura",

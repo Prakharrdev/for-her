@@ -22,15 +22,18 @@ function SakuraPetal({ className, style }: { className?: string; style?: React.C
 }
 
 /* ---------- drifting petal particles ---------- */
+const DRIFTING_PETALS = Array.from({ length: 12 }, (_, i) => ({
+  id: i,
+  left: `${((i * 8 + 5) * 7) % 100}%`,
+  delay: ((i * 3 + 2) % 8),
+  duration: 8 + ((i * 5 + 1) % 6),
+  size: 10 + ((i * 4 + 3) % 14),
+  opacity: 0.15 + ((i * 7 + 2) % 25) / 100,
+  drift: 40 + ((i * 6 + 1) % 60),
+}));
+
 function DriftingPetals() {
-  const petals = Array.from({ length: 12 }, (_, i) => ({
-    id: i,
-    left: `${Math.random() * 100}%`,
-    delay: Math.random() * 8,
-    duration: 8 + Math.random() * 6,
-    size: 10 + Math.random() * 14,
-    opacity: 0.15 + Math.random() * 0.25,
-  }));
+  const petals = DRIFTING_PETALS;
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none" aria-hidden>
@@ -41,7 +44,7 @@ function DriftingPetals() {
           style={{ left: p.left, top: '-24px', opacity: p.opacity }}
           animate={{
             y: ['0vh', '105vh'],
-            x: [0, 40 + Math.random() * 60],
+            x: [0, p.drift],
             rotate: [0, 360],
           }}
           transition={{

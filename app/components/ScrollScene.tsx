@@ -1,7 +1,7 @@
 'use client';
 
 import React, { useEffect, useRef, useState } from 'react';
-import { motion, useScroll, useTransform, MotionValue } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import BranchOverlay from './BranchOverlay';
 
 const GENESIS_FRAME_COUNT = 200;
@@ -35,7 +35,7 @@ export default function ScrollScene() {
   const { scrollY } = useScroll();
   
   // Manual scroll progress calculation based on container position
-  const scrollYProgress = useTransform(scrollY, (latest) => {
+  const scrollYProgress = useTransform(scrollY, () => {
     if (!containerRef.current) return 0;
     const rect = containerRef.current.getBoundingClientRect();
     const scrollableHeight = rect.height - window.innerHeight;

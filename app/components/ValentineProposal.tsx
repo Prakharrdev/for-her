@@ -79,15 +79,17 @@ function fireConfetti() {
 
 // ── Floating petal background decoration ───────────────────────────────────────
 
+const FLOATING_PETALS = Array.from({ length: 12 }, (_, i) => ({
+  id: i,
+  left: `${5 + (((i * 7 + 3) * 13) % 90)}%`,
+  delay: ((i * 3 + 1) % 12) * 0.42,
+  duration: 6 + ((i * 5 + 2) % 6),
+  size: 6 + ((i * 4 + 1) % 10),
+  drift: -30 + ((i * 9 + 4) % 60),
+}));
+
 function FloatingPetals() {
-  const petals = Array.from({ length: 12 }, (_, i) => ({
-    id: i,
-    left: `${5 + Math.random() * 90}%`,
-    delay: Math.random() * 5,
-    duration: 6 + Math.random() * 6,
-    size: 6 + Math.random() * 10,
-    drift: -30 + Math.random() * 60,
-  }));
+  const petals = FLOATING_PETALS;
 
   return (
     <div className="absolute inset-0 overflow-hidden pointer-events-none">
@@ -281,14 +283,25 @@ export default function ValentineProposal() {
       </div>
 
       {/* Footer credit */}
-      <motion.p
-        className="absolute bottom-6 left-0 right-0 text-center text-xs text-pink-200/30 font-light tracking-[0.15em]"
+      <motion.div
+        className="absolute bottom-6 left-0 right-0 flex items-center justify-center gap-2 text-xs text-pink-200/30 font-light tracking-[0.15em]"
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
       >
-        made by Perk with ♥
-      </motion.p>
+        <span>Made by Perk with ♥</span>
+        <a
+          href="https://www.linkedin.com/in/prakharrdev/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="text-pink-200/30 hover:text-pink-200/60 transition-colors"
+          aria-label="Connect on LinkedIn"
+        >
+          <svg viewBox="0 0 24 24" className="w-3.5 h-3.5 fill-current">
+            <path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" />
+          </svg>
+        </a>
+      </motion.div>
     </div>
   );
 }

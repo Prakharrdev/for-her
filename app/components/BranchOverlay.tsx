@@ -115,14 +115,14 @@ function MemoryCard({ memory, index }: { memory: Memory; index: number }) {
             sizes="320px"
           />
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-transparent to-transparent" />
-          <span className="absolute bottom-2 left-3 text-[9px] font-medium tracking-widest uppercase text-pink-300/80 bg-black/40 px-2 py-0.5 rounded-full backdrop-blur-sm">
+          <span className="absolute bottom-2 left-3 text-[11px] font-medium tracking-widest uppercase text-pink-300/80 bg-black/40 px-2 py-0.5 rounded-full backdrop-blur-sm">
             {memory.date}
           </span>
         </div>
 
         {/* Text */}
         <div className="p-4">
-          <h3 className="text-sm font-light text-white tracking-wide mb-2">
+          <h3 className="text-base font-light text-white tracking-wide mb-2">
             {memory.title}
           </h3>
           <div className="h-px w-8 bg-gradient-to-r from-pink-400/40 to-transparent mb-2" />
@@ -130,7 +130,7 @@ function MemoryCard({ memory, index }: { memory: Memory; index: number }) {
             {expanded ? (
               <motion.p
                 key="full"
-                className="text-[11px] leading-relaxed text-white/55 font-light"
+                className="text-[13px] leading-relaxed text-white/55 font-light"
                 initial={{ opacity: 0, height: 0 }}
                 animate={{ opacity: 1, height: 'auto' }}
                 exit={{ opacity: 0, height: 0 }}
@@ -141,7 +141,7 @@ function MemoryCard({ memory, index }: { memory: Memory; index: number }) {
             ) : (
               <motion.p
                 key="short"
-                className="text-[11px] leading-relaxed text-white/55 font-light line-clamp-2"
+                className="text-[13px] leading-relaxed text-white/55 font-light line-clamp-2"
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
@@ -201,7 +201,7 @@ export default function BranchOverlay({
       <motion.div
         className="absolute flex items-center"
         style={{
-          top: '80%',
+          top: '75%',
           translateY: '-50%',
           x: translateX,
           gap: CARD_GAP,
@@ -242,7 +242,7 @@ export default function BranchOverlay({
         }}
       >
         <motion.span
-          className="text-[10px] text-white/25 tracking-[0.2em] uppercase"
+          className="text-xs text-white/25 tracking-[0.2em] uppercase"
           animate={{ x: [0, 6, 0] }}
           transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
         >
