@@ -56,3 +56,39 @@ a, button, input, textarea, select, [role="button"] {
   90% { opacity: 0.6; }
   100% { transform: translate(80px, 100vh) rotate(360deg); opacity: 0; }
 }
+
+/* Volume slider styles */
+.volume-slider::-webkit-slider-runnable-track {
+  width: 4px;
+  background: linear-gradient(to top, rgba(244, 163, 181, 0.6), rgba(255, 255, 255, 0.15));
+  border-radius: 2px;
+}
+
+.volume-slider::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  appearance: none;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f9a8c0, #e879a0);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 6px rgba(244, 163, 181, 0.5);
+  margin-left: -5px;
+  cursor: pointer !important;
+}
+
+.volume-slider::-moz-range-track {
+  width: 4px;
+  background: linear-gradient(to top, rgba(244, 163, 181, 0.6), rgba(255, 255, 255, 0.15));
+  border-radius: 2px;
+}
+
+.volume-slider::-moz-range-thumb {
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: radial-gradient(circle, #f9a8c0, #e879a0);
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 6px rgba(244, 163, 181, 0.5);
+  cursor: pointer !important;
+}

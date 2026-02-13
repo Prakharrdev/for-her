@@ -7,8 +7,11 @@ export default function AudioPlayer() {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
+  const [volume, setVolume] = useState(0.4);
+  const [showVolumeSlider, setShowVolumeSlider] = useState(false);
   const [showPrompt, setShowPrompt] = useState(true);
   const [mounted, setMounted] = useState(false);
+  const volumeTimeoutRef = useRef<NodeJS.Timeout | null>(null);
 
   useEffect(() => {
     setMounted(true);
@@ -17,7 +20,7 @@ export default function AudioPlayer() {
   const startExperience = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
-    audio.volume = 0.4;
+    audio.volume = volume;
     audio.play().then(() => {
       setIsPlaying(true);
       setShowPrompt(false);
@@ -25,7 +28,7 @@ export default function AudioPlayer() {
       // Autoplay blocked — user will need to click the player itself
       setShowPrompt(false);
     });
-  }, []);
+  }, [volume]);
 
   const togglePlay = useCallback(() => {
     const audio = audioRef.current;
@@ -34,22 +37,40 @@ export default function AudioPlayer() {
       audio.pause();
       setIsPlaying(false);
     } else {
-      audio.volume = isMuted ? 0 : 0.4;
+      audio.volume = isMuted ? 0 : volume;
       audio.play().then(() => setIsPlaying(true)).catch(() => {});
     }
-  }, [isPlaying, isMuted]);
+  }, [isPlaying, isMuted, volume]);
 
   const toggleMute = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
     if (isMuted) {
-      audio.volume = 0.4;
+      audio.volume = volume;
       setIsMuted(false);
     } else {
       audio.volume = 0;
       setIsMuted(true);
     }
-  }, [isMuted]);
+  }, [isMuted, volume]);
+
+  const handleVolumeChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
+    const newVolume = parseFloat(e.target.value);
+    setVolume(newVolume);
+    const audio = audioRef.current;
+    if (!audio) return;
+    audio.volume = newVolume;
+    setIsMuted(newVolume === 0);
+  }, []);
+
+  const handleVolumeHoverEnter = useCallback(() => {
+    if (volumeTimeoutRef.current) clearTimeout(volumeTimeoutRef.current);
+    setShowVolumeSlider(true);
+  }, []);
+
+  const handleVolumeHoverLeave = useCallback(() => {
+    volumeTimeoutRef.current = setTimeout(() => setShowVolumeSlider(false), 300);
+  }, []);
 
   if (!mounted) return null;
 
@@ -176,21 +197,71 @@ export default function AudioPlayer() {
                 )}
               </button>
 
-              {/* Mute button */}
-              <button
-                onClick={toggleMute}
-                className="w-7 h-7 flex items-center justify-center text-white/40 hover:text-white/80 transition-colors cursor-pointer"
+              {/* Mute button + Volume slider */}
+              <div
+                className="relative flex items-center"
+                onMouseEnter={handleVolumeHoverEnter}
+                onMouseLeave={handleVolumeHoverLeave}
               >
-                {isMuted ? (
-                  <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
-                    <path d="M16.5 12A4.5 4.5 0 0 0 14 8.18v1.7l2.4 2.4c.06-.27.1-.55.1-.84zm2 0c0 .94-.21 1.82-.58 2.62l1.28 1.28A8.94 8.94 0 0 0 20.5 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 0 0 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" fill="currentColor" />
-                  </svg>
-                ) : (
-                  <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
-                    <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8.18v7.64a4.5 4.5 0 0 0 2.5-3.82zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" fill="currentColor" />
-                  </svg>
-                )}
-              </button>
+                <button
+                  onClick={toggleMute}
+                  className="w-7 h-7 flex items-center justify-center text-white/40 hover:text-white/80 transition-colors cursor-pointer"
+                >
+                  {isMuted || volume === 0 ? (
+                    <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+                      <path d="M16.5 12A4.5 4.5 0 0 0 14 8.18v1.7l2.4 2.4c.06-.27.1-.55.1-.84zm2 0c0 .94-.21 1.82-.58 2.62l1.28 1.28A8.94 8.94 0 0 0 20.5 12c0-4.28-2.99-7.86-7-8.77v2.06c2.89.86 5 3.54 5 6.71zM4.27 3L3 4.27 7.73 9H3v6h4l5 5v-6.73l4.25 4.25c-.67.52-1.42.93-2.25 1.18v2.06a8.99 8.99 0 0 0 3.69-1.81L19.73 21 21 19.73l-9-9L4.27 3zM12 4L9.91 6.09 12 8.18V4z" fill="currentColor" />
+                    </svg>
+                  ) : volume < 0.5 ? (
+                    <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+                      <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8.18v7.64a4.5 4.5 0 0 0 2.5-3.82z" fill="currentColor" />
+                    </svg>
+                  ) : (
+                    <svg viewBox="0 0 24 24" className="w-4 h-4 fill-current">
+                      <path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8.18v7.64a4.5 4.5 0 0 0 2.5-3.82zM14 3.23v2.06c2.89.86 5 3.54 5 6.71s-2.11 5.85-5 6.71v2.06c4.01-.91 7-4.49 7-8.77s-2.99-7.86-7-8.77z" fill="currentColor" />
+                    </svg>
+                  )}
+                </button>
+
+                {/* Volume slider popup */}
+                <AnimatePresence>
+                  {showVolumeSlider && (
+                    <motion.div
+                      className="absolute bottom-full left-1/2 -translate-x-1/2 mb-3 px-3 py-4 rounded-xl border border-white/15"
+                      style={{
+                        background: 'rgba(0,0,0,0.55)',
+                        backdropFilter: 'blur(20px)',
+                        WebkitBackdropFilter: 'blur(20px)',
+                      }}
+                      initial={{ opacity: 0, y: 6, scale: 0.95 }}
+                      animate={{ opacity: 1, y: 0, scale: 1 }}
+                      exit={{ opacity: 0, y: 6, scale: 0.95 }}
+                      transition={{ duration: 0.2 }}
+                      onMouseEnter={handleVolumeHoverEnter}
+                      onMouseLeave={handleVolumeHoverLeave}
+                    >
+                      <input
+                        type="range"
+                        min={0}
+                        max={1}
+                        step={0.01}
+                        value={isMuted ? 0 : volume}
+                        onChange={handleVolumeChange}
+                        className="volume-slider"
+                        style={{
+                          writingMode: 'vertical-lr',
+                          direction: 'rtl',
+                          width: '4px',
+                          height: '80px',
+                          appearance: 'none',
+                          WebkitAppearance: 'none',
+                          background: 'transparent',
+                          cursor: 'pointer',
+                        }}
+                      />
+                    </motion.div>
+                  )}
+                </AnimatePresence>
+              </div>
             </div>
           </motion.div>
         )}
