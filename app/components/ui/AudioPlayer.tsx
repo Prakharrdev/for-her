@@ -3,7 +3,11 @@
 import React, { useRef, useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 
-export default function AudioPlayer() {
+interface AudioPlayerProps {
+  onStart?: () => void;
+}
+
+export default function AudioPlayer({ onStart }: AudioPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
   const [isMuted, setIsMuted] = useState(false);
@@ -39,11 +43,13 @@ export default function AudioPlayer() {
     audio.play().then(() => {
       setIsPlaying(true);
       setShowPrompt(false);
+      onStart?.();
     }).catch(() => {
       // Autoplay blocked — user will need to click the player itself
       setShowPrompt(false);
+      onStart?.();
     });
-  }, [volume]);
+  }, [volume, onStart]);
 
   const togglePlay = useCallback(() => {
     const audio = audioRef.current;

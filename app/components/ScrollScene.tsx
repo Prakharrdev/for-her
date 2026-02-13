@@ -294,21 +294,64 @@ export default function ScrollScene() {
 
   if (!isReady) {
     return (
-        <div className="h-screen w-full flex flex-col items-center justify-center bg-black text-white">
-            <p className="text-xl mb-4 font-light tracking-widest">LOADING MEMORY</p>
-            <div className="w-64 h-1 bg-zinc-800 rounded-full overflow-hidden">
-                <div 
-                    className="h-full bg-white transition-all duration-300 ease-out"
-                    style={{ width: `${loadingProgress}%` }}
-                />
-            </div>
-            <p className="text-xs mt-2 text-zinc-500">{loadingProgress}%</p>
+      <div className="h-screen w-full flex flex-col items-center justify-center bg-black text-white relative overflow-hidden">
+        {/* Subtle radial glow */}
+        <div
+          className="absolute inset-0 pointer-events-none"
+          style={{
+            background:
+              'radial-gradient(ellipse 50% 40% at 50% 50%, rgba(255,105,180,0.06) 0%, transparent 70%)',
+          }}
+        />
+
+        {/* Sakura petal icon */}
+        <motion.div
+          className="mb-8 text-pink-300/40"
+          animate={{ rotate: [0, 5, -5, 0], scale: [1, 1.05, 1] }}
+          transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+        >
+          <svg viewBox="0 0 30 30" width={24} height={24} fill="currentColor">
+            <path d="M15 2 C18 8, 26 10, 28 15 C26 20, 18 22, 15 28 C12 22, 4 20, 2 15 C4 10, 12 8, 15 2Z" />
+          </svg>
+        </motion.div>
+
+        {/* Title */}
+        <p
+          className="text-sm md:text-base mb-6 font-light tracking-[0.25em] uppercase"
+          style={{
+            background: 'linear-gradient(135deg, #FFE5E5 0%, #FFB6C1 50%, #FFE5E5 100%)',
+            backgroundSize: '200% 200%',
+            WebkitBackgroundClip: 'text',
+            WebkitTextFillColor: 'transparent',
+            backgroundClip: 'text',
+            animation: 'shimmer 4s ease-in-out infinite',
+          }}
+        >
+          Loading Memories
+        </p>
+
+        {/* Progress bar */}
+        <div className="w-48 h-[2px] bg-white/[0.06] rounded-full overflow-hidden">
+          <motion.div
+            className="h-full rounded-full"
+            style={{
+              width: `${loadingProgress}%`,
+              background: 'linear-gradient(90deg, rgba(255,182,193,0.4), rgba(255,105,180,0.7))',
+              boxShadow: '0 0 8px rgba(255,105,180,0.4)',
+            }}
+            transition={{ duration: 0.3, ease: 'easeOut' }}
+          />
         </div>
+
+        <p className="text-[10px] mt-3 text-pink-200/20 tracking-widest">{loadingProgress}%</p>
+      </div>
     );
   }
 
   return (
     <div ref={containerRef} style={{ height: `${SCROLL_HEIGHT}px` }} className="relative bg-black">
+      {/* Top gradient — seamless blend from Prologue */}
+      <div className="absolute top-0 left-0 right-0 h-32 bg-gradient-to-b from-black to-transparent pointer-events-none z-30" />
       <div className="sticky top-0 h-screen w-full overflow-hidden bg-black">
         
         {/* Background Video Layer — loops after text fades out, z-index: 5 */}
@@ -402,6 +445,9 @@ export default function ScrollScene() {
           branchEnd={0.92}
         />
       </div>
+
+      {/* Bottom gradient — seamless blend into Finale */}
+      <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black to-transparent pointer-events-none z-30" />
     </div>
   );
 }
