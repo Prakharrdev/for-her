@@ -1,6 +1,6 @@
 import ScrollScene from "@/app/components/ScrollScene";
 import SeasonCanvas from "@/app/components/SeasonCanvas";
-import MemoryLane from "@/app/components/MemoryLane";
+import HorizontalBranch from "@/app/components/sections/HorizontalBranch";
 
 export default function Home() {
   return (
@@ -14,15 +14,15 @@ export default function Home() {
       
       <ScrollScene />
 
-      {/* Scene 3 — Memory Lane over Seasonal Background */}
+      {/* Scene 3 — Horizontal Branch over Seasonal Background */}
       <section className="relative">
         {/* The Background (Stays fixed while we scroll this section) */}
         <div className="sticky top-0 h-screen w-full -z-10">
           <SeasonCanvas />
         </div>
 
-        {/* The Content (Scrolls naturally over the seasonal background) */}
-        <MemoryLane />
+        {/* The Content (Horizontal scroll over the seasonal background) */}
+        <HorizontalBranch />
       </section>
       
       <section className="h-screen flex items-center justify-center bg-black text-white relative overflow-hidden">
