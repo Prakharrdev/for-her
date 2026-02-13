@@ -150,7 +150,37 @@ const memories: Memory[] = [
   description:
     "A whole year of choosing each other—through distance, fights, fear, and faith. Loving you hasn’t been easy, but it has been real. And if I had to start over, I’d still choose you, every single time.",
   image: "/genesis/ezgif-frame-200.jpg",
+},{
+  id: 19,
+  date: "January 29, 2025",
+  title: "The First Meetup",
+  description:
+    "I stepped off that flight with my heart in my throat. And then I saw you—real, close, mine. When our lips finally met, the entire world dissolved. Every mile, every late-night call, every tear—it all led to that one perfect kiss.",
+  image: "/genesis/ezgif-frame-078.jpg",
 },
-];
+{
+  id: 20,
+  date: "October 5, 2025",
+  title: "Three Days of Us",
+  description:
+    "Three days that felt like a lifetime of happiness. We laughed until our stomachs hurt, explored like kids, and held each other like we'd never let go. Every second together was a reminder of why the distance is worth it.",
+  image: "/genesis/ezgif-frame-133.jpg",
+},
+{
+  id: 21,
+  date: "January 1, 2026",
+  title: "Our Third New Year",
+  description:
+    "Midnight struck and we were on a call, eyes shining through screens, hearts beating in sync. We whispered 'I love you' into the silence and made a promise—to stay, to fight, to choose each other every single day. In that moment, forever didn't feel like a word. It felt like us.",
+  image: "/genesis/ezgif-frame-156.jpg",
+},
+{
+  id: 22,
+  date: "February 14, 2026",
+  title: "This Moment, Right Now",
+  description:
+    "I built this for you—every pixel, every word, every heartbeat coded into this page. Because you deserve more than flowers that fade. You deserve something eternal. Happy Valentine's Day, my love. This is my heart, wrapped in sakura petals, delivered to yours.",
+  image: "/genesis/ezgif-frame-100.jpg",
+},];
 
 export default memories;
