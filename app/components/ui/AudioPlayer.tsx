@@ -17,6 +17,21 @@ export default function AudioPlayer() {
     setMounted(true);
   }, []);
 
+  // Lock scroll while prompt is showing
+  useEffect(() => {
+    if (showPrompt) {
+      document.documentElement.style.overflow = 'hidden';
+      document.body.style.overflow = 'hidden';
+    } else {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    }
+    return () => {
+      document.documentElement.style.overflow = '';
+      document.body.style.overflow = '';
+    };
+  }, [showPrompt]);
+
   const startExperience = useCallback(() => {
     const audio = audioRef.current;
     if (!audio) return;
@@ -79,52 +94,98 @@ export default function AudioPlayer() {
       {/* Hidden audio element */}
       <audio ref={audioRef} src="/assets/Taylor Swift Mine.mp3" loop preload="auto" />
 
-      {/* Initial prompt overlay */}
+      {/* Initial prompt overlay — liquid glass over page content */}
       <AnimatePresence>
         {showPrompt && (
           <motion.div
-            className="fixed inset-0 z-[100] flex items-center justify-center"
+            className="fixed inset-0 z-[100] flex flex-col items-center justify-center"
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.5 }}
+            exit={{ opacity: 0, scale: 1.05 }}
+            transition={{ duration: 0.6 }}
           >
-            <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
-            <motion.button
-              className="relative z-10 cursor-pointer group"
-              onClick={startExperience}
-              initial={{ scale: 0.9, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.9, opacity: 0 }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.97 }}
-            >
-              <div
-                className="px-10 py-5 rounded-full border border-white/20 text-white font-light tracking-[0.2em] text-sm md:text-base"
-                style={{
-                  background: 'rgba(255,255,255,0.06)',
-                  backdropFilter: 'blur(16px)',
-                  WebkitBackdropFilter: 'blur(16px)',
-                }}
-              >
-                <span className="flex items-center gap-3">
-                  {/* Play icon */}
-                  <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current" fill="none">
-                    <path d="M8 5.14v14l11-7-11-7z" fill="currentColor" />
-                  </svg>
-                  Begin the Experience
-                </span>
-              </div>
+            {/* Liquid glass blur layer */}
+            <div
+              className="absolute inset-0"
+              style={{
+                backdropFilter: 'blur(40px) saturate(1.6) brightness(0.4)',
+                WebkitBackdropFilter: 'blur(40px) saturate(1.6) brightness(0.4)',
+                background: 'rgba(0,0,0,0.3)',
+              }}
+            />
 
-              {/* Glow ring */}
-              <motion.div
-                className="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300"
-                style={{
-                  background: 'radial-gradient(circle, rgba(255,182,193,0.2) 0%, transparent 70%)',
-                  filter: 'blur(8px)',
-                }}
-              />
-            </motion.button>
+            {/* Subtle refraction highlight at top */}
+            <div
+              className="absolute inset-0 pointer-events-none"
+              style={{
+                background:
+                  'linear-gradient(180deg, rgba(255,255,255,0.03) 0%, transparent 30%, transparent 70%, rgba(0,0,0,0.15) 100%)',
+              }}
+            />
+
+            {/* Centre content — just the button */}
+            <div className="relative z-10 flex flex-col items-center">
+              {/* CTA Button */}
+              <motion.button
+                className="relative cursor-pointer group"
+                onClick={startExperience}
+                initial={{ opacity: 0, scale: 0.9 }}
+                animate={{ opacity: 1, scale: 1 }}
+                transition={{ delay: 0.3, duration: 0.8, ease: [0.25, 0.46, 0.45, 0.94] }}
+                whileHover={{ scale: 1.06 }}
+                whileTap={{ scale: 0.97 }}
+              >
+                {/* Soft pulsing glow */}
+                <motion.div
+                  className="absolute -inset-6 rounded-full"
+                  style={{
+                    background:
+                      'radial-gradient(circle, rgba(255,182,193,0.2) 0%, transparent 70%)',
+                    filter: 'blur(20px)',
+                  }}
+                  animate={{ scale: [1, 1.25, 1], opacity: [0.5, 0.9, 0.5] }}
+                  transition={{ duration: 3, repeat: Infinity, ease: 'easeInOut' }}
+                />
+
+                <div
+                  className="relative px-14 py-5 rounded-full border border-white/20 text-white font-light tracking-[0.2em] text-sm md:text-base"
+                  style={{
+                    background: 'rgba(255,255,255,0.08)',
+                    backdropFilter: 'blur(30px) saturate(1.8)',
+                    WebkitBackdropFilter: 'blur(30px) saturate(1.8)',
+                    boxShadow:
+                      '0 8px 32px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.15), inset 0 -1px 0 rgba(255,255,255,0.05)',
+                  }}
+                >
+                  <span className="flex items-center gap-3">
+                    <svg viewBox="0 0 24 24" className="w-5 h-5 fill-current text-pink-200/90" fill="none">
+                      <path d="M8 5.14v14l11-7-11-7z" fill="currentColor" />
+                    </svg>
+                    Begin the Experience
+                  </span>
+                </div>
+
+                {/* Hover glow ring */}
+                <motion.div
+                  className="absolute -inset-1 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-500"
+                  style={{
+                    background:
+                      'radial-gradient(circle, rgba(255,182,193,0.2) 0%, transparent 70%)',
+                    filter: 'blur(14px)',
+                  }}
+                />
+              </motion.button>
+            </div>
+
+            {/* Bottom credit */}
+            <motion.p
+              className="absolute bottom-8 text-xs text-white/20 font-light tracking-[0.15em]"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ delay: 0.8, duration: 1 }}
+            >
+              made by Perk with ♥
+            </motion.p>
           </motion.div>
         )}
       </AnimatePresence>

@@ -279,6 +279,16 @@ export default function ValentineProposal() {
           )}
         </AnimatePresence>
       </div>
+
+      {/* Footer credit */}
+      <motion.p
+        className="absolute bottom-6 left-0 right-0 text-center text-xs text-pink-200/30 font-light tracking-[0.15em]"
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.5, duration: 1 }}
+      >
+        made by Perk with ♥
+      </motion.p>
     </div>
   );
 }
