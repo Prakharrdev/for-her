@@ -1,0 +1,21 @@
+{
+  "name": "Eternal Sakura — A Love Story Written in Petals",
+  "short_name": "Eternal Sakura",
+  "description": "An immersive, scroll-driven love letter — from the first glance to forever.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0a0a0a",
+  "theme_color": "#0a0a0a",
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
