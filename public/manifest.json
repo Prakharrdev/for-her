@@ -1,8 +1,9 @@
 {
-  "name": "Eternal Sakura — A Love Story Written in Petals",
+  "name": "Eternal Sakura — For Gauri, by Prakhar",
   "short_name": "Eternal Sakura",
-  "description": "An immersive, scroll-driven love letter — from the first glance to forever.",
-  "start_url": "/",
+  "description": "An immersive, scroll-driven love letter — from the first glance to forever. Crafted by Prakhar for Gauri.",
+  "start_url": "https://sakura.perkkk.dev/",
+  "id": "/",
   "display": "standalone",
   "background_color": "#0a0a0a",
   "theme_color": "#0a0a0a",
