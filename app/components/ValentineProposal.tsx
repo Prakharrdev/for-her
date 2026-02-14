@@ -289,7 +289,7 @@ export default function ValentineProposal() {
         animate={{ opacity: 1 }}
         transition={{ delay: 1.5, duration: 1 }}
       >
-        <span>Made by Perk with ♥</span>
+        <span>Made by <a href="https://perkkk.dev" target="_blank" rel="noopener noreferrer" className="hover:text-pink-200/60 transition-colors">Perk</a> with ♥</span>
         <a
           href="https://www.linkedin.com/in/prakharrdev/"
           target="_blank"
