@@ -51,7 +51,7 @@ export const metadata: Metadata = {
   metadataBase: new URL("https://sakura.perkkk.dev"),
 
   alternates: {
-    canonical: "/",
+    canonical: "https://sakura.perkkk.dev",
   },
 
   openGraph: {
